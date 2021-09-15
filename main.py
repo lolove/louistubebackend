@@ -26,8 +26,7 @@ app = FastAPI()
 
 @app.get("/")
 def home():
-    with open('./who.3gpp', 'r') as f:
-        return FileResponse('./', media_type='application/octet-stream',filename="who.3gpp")
+    return FileResponse('./who.3gpp')
 
 @app.get("/music")
 def home():
