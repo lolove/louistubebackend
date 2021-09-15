@@ -26,7 +26,7 @@ app = FastAPI()
 
 @app.get("/")
 def home():
-    return FileResponse('./who.3gpp')
+    return FileResponse('./who.3gpp',filename="who.3gpp")
 
 @app.get("/music")
 def home():
