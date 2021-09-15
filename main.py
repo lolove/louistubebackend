@@ -16,6 +16,7 @@
 
 
 from fastapi import FastAPI
+from starlette.responses import FileResponse
 
 
 app = FastAPI()
@@ -26,7 +27,7 @@ app = FastAPI()
 @app.get("/")
 def home():
     with open('./who.3gpp', 'r') as f:
-        return f.read()
+        return FileResponse('./', media_type='application/octet-stream',filename="who.3gpp")
 
 @app.get("/music")
 def home():
