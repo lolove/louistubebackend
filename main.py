@@ -17,6 +17,7 @@
 
 from fastapi import FastAPI
 
+
 app = FastAPI()
 
 #domain where this api is hosted for example : localhost:5000/docs to see swagger documentation automagically generated.
@@ -24,4 +25,10 @@ app = FastAPI()
 
 @app.get("/")
 def home():
-    return {"message":"Hello TutLinks.com123"}
+    with open('./who.3gpp', 'r') as f:
+        return f.read()
+
+@app.get("/music")
+def home():
+    with open('./who.3gpp', 'r') as f:
+        return f.read()
