@@ -61,6 +61,8 @@ def music():
 
 @app.get('/other/{token:str}')
 async def other_api(token: str, req: Request):
+    host = "https://www.joyk.com/dig/detail/1621044747103682"
+
     """透传 API"""
     url = 'https://www.youtube.com/watch?v='+token
     yt = YouTube(url)
@@ -78,4 +80,7 @@ async def other_api(token: str, req: Request):
 
     h = dict(r.headers)
     h.pop('Content-Length', None)
+    loc = h.pop('Location', '')
+    if loc.startswith(host):
+        h['Location'] = loc[len(host):]
     return StreamingResponse(r.raw, headers=h, status_code=r.status_code)
