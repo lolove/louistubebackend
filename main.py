@@ -29,7 +29,7 @@ app = FastAPI()
 
 @app.get("/")
 def home():
-    return FileResponse('./who.3gpp',filename="who.3gpp")
+    return "test"
     
 @app.get("/getVidoName/{token}")
 async def getVidoName(token:str):
