@@ -31,6 +31,14 @@ app = FastAPI()
 def home():
     return "test"
     
+@app.get("/get_author/{token}")
+async def getVidoName(token:str):
+    # yt = YouTube(url)
+    # return yt.title
+    url = 'https://www.youtube.com/watch?v='+token
+    yt = YouTube(url)
+    return yt.author
+
 @app.get("/getVidoName/{token}")
 async def getVidoName(token:str):
     # yt = YouTube(url)
@@ -65,6 +73,8 @@ async def get_thumbnail_url(token:str, req: Request):
     if loc.startswith(host):
         h['Location'] = loc[len(host):]
     return StreamingResponse(r.raw, headers=h, status_code=r.status_code)
+
+
 
 @app.get("/downloadVideo/{token}")
 async def downloadVideo(token:str):
