@@ -39,6 +39,14 @@ async def getVidoName(token:str):
     yt = YouTube(url)
     return yt.title
 
+@app.get("/get_thumbnail_url/{token}")
+async def get_thumbnail_url(token:str):
+    # yt = YouTube(url)
+    # return yt.title
+    url = 'https://www.youtube.com/watch?v='+token
+    yt = YouTube(url)
+    return yt.yt.thumbnail_url
+
 @app.get("/downloadVideo/{token}")
 async def downloadVideo(token:str):
     url = 'https://www.youtube.com/watch?v='+token
