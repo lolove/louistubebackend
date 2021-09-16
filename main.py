@@ -61,7 +61,7 @@ def music():
 
 @app.get('/other/{token:str}')
 async def other_api(token: str, req: Request):
-    host = "http://127.0.0.1:8284/other/"
+    host = "https://floating-citadel-20088.herokuapp.com"
 
     """透传 API"""
     url = 'https://www.youtube.com/watch?v='+token
