@@ -40,12 +40,31 @@ async def getVidoName(token:str):
     return yt.title
 
 @app.get("/get_thumbnail_url/{token}")
-async def get_thumbnail_url(token:str):
-    # yt = YouTube(url)
-    # return yt.title
+async def get_thumbnail_url(token:str, req: Request):
+    host = "https://floating-citadel-20088.herokuapp.com"
+
+    """透传 API"""
     url = 'https://www.youtube.com/watch?v='+token
     yt = YouTube(url)
-    return yt.yt.thumbnail_url
+    # yt.streams.first().download()
+    tube_url = yt.thumbnail_url
+
+    body = bytes(await req.body()) or None
+    # print(body)
+    r = requests.request(
+        req.method, tube_url,
+        headers={
+            'Cookie': req.headers.get('cookie') or '',
+            'Content-Type': req.headers.get('Content-Type')},
+        params=req.query_params, data=body, stream=True,
+        allow_redirects=True)
+    print(r)
+    h = dict(r.headers)
+    h.pop('Content-Length', None)
+    loc = h.pop('Location', '')
+    if loc.startswith(host):
+        h['Location'] = loc[len(host):]
+    return StreamingResponse(r.raw, headers=h, status_code=r.status_code)
 
 @app.get("/downloadVideo/{token}")
 async def downloadVideo(token:str):
