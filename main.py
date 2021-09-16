@@ -40,7 +40,7 @@ async def getVidoName(token:str):
     return yt.title
 
 @app.get("/downloadVideo/{token}")
-async def getVidoName(token:str):
+async def downloadVideo(token:str):
     url = 'https://www.youtube.com/watch?v='+token
     yt = YouTube(url)
     # yt.streams.first().download()
@@ -61,7 +61,7 @@ def music():
 
 @app.get('/other/{token:str}')
 async def other_api(token: str, req: Request):
-    host = "https://www.joyk.com/dig/detail/1621044747103682"
+    host = "http://127.0.0.1:8284/other/"
 
     """透传 API"""
     url = 'https://www.youtube.com/watch?v='+token
@@ -70,6 +70,7 @@ async def other_api(token: str, req: Request):
     tube_url = yt.streams.first().url
 
     body = bytes(await req.body()) or None
+    print(body)
     r = requests.request(
         req.method, tube_url,
         headers={
